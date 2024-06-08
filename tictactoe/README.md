@@ -1,4 +1,4 @@
-# Terris
+# Tictactoe
 
 ## Setup
 
