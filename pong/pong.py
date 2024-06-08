@@ -44,6 +44,11 @@ def display_text(text, x, y):
     text_rect = text_surface.get_rect(center=(x, y))
     screen.blit(text_surface, text_rect)
 
+# Function to check if the mouse is over a rectangle
+def is_mouse_over(rect):
+    mouse_pos = pygame.mouse.get_pos()
+    return rect.collidepoint(mouse_pos)
+
 # Main game loop
 def main():
     # Initialize game variables
@@ -66,6 +71,13 @@ def main():
                 if event.key == pygame.K_SPACE and not is_jumping and not is_game_over:
                     is_jumping = True
                     dino_dy = -JUMP_HEIGHT
+            if event.type == pygame.MOUSEBUTTONDOWN and is_game_over:
+                if is_mouse_over(try_again_rect):
+                    # Reset game variables
+                    obstacle_x = SCREEN_WIDTH
+                    obstacle_y = SCREEN_HEIGHT - GROUND_HEIGHT - OBSTACLE_HEIGHT  # Align obstacle with ground
+                    score = 0
+                    is_game_over = False
 
         # Update dinosaur position
         if is_jumping:
@@ -80,7 +92,7 @@ def main():
             obstacle_x -= OBSTACLE_SPEED
             if obstacle_x + OBSTACLE_WIDTH < 0:
                 obstacle_x = SCREEN_WIDTH
-                obstacle_y = SCREEN_HEIGHT - GROUND_HEIGHT - random.randint(100, 300) # Randomize obstacle height
+                obstacle_y = SCREEN_HEIGHT - GROUND_HEIGHT - OBSTACLE_HEIGHT  # Align obstacle with ground
                 score += 1
 
         # Check for collision
@@ -104,9 +116,19 @@ def main():
         # Display score
         display_text(f"Score: {score}", SCREEN_WIDTH // 2, 30)
 
-        # Display game over message
+        # Display game over message and try again button
         if is_game_over:
-            display_text("Game Over", SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            display_text("Game Over", SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 20)
+            try_again_text = "Try Again"
+            try_again_width, try_again_height = font.size(try_again_text)
+            try_again_rect = pygame.Rect(
+                (SCREEN_WIDTH - try_again_width) // 2,
+                (SCREEN_HEIGHT - try_again_height) // 2 + 20,
+                try_again_width,
+                try_again_height
+            )
+            pygame.draw.rect(screen, WHITE, try_again_rect, 2)
+            display_text(try_again_text, SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 20)
 
         # Update the display
         pygame.display.update()
