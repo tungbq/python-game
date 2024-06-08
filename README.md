@@ -8,8 +8,10 @@ Write your own games in python
 
 ## Available game
 
-| ID  | Game      | Code and Demo             | Status  |
-| :-- | :-------- | :------------------------ | :------ |
-| 01  | Tetris    | [tetris](./tetris/)       | ✔️ Done |
-| 02  | Tictactoe | [tictactoe](./tictactoe/) | ✔️ Done |
-| 03  | Snake     | [snake](./snake/)         | ✔️ Done |
+| ID  | Game      | Code and Demo             | Status      |
+| :-- | :-------- | :------------------------ | :---------- |
+| 01  | Tetris    | [tetris](./tetris/)       | ✔️ Done     |
+| 02  | Tictactoe | [tictactoe](./tictactoe/) | ✔️ Done     |
+| 03  | Snake     | [snake](./snake/)         | ✔️ Done     |
+| 04  | 2048      | [2048](./2048/)           | In-progress |
+gi
