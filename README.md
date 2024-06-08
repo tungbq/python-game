@@ -14,4 +14,3 @@ Write your own games in python
 | 02  | Tictactoe | [tictactoe](./tictactoe/) | ✔️ Done     |
 | 03  | Snake     | [snake](./snake/)         | ✔️ Done     |
 | 04  | 2048      | [2048](./2048/)           | In-progress |
-gi
