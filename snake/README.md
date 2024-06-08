@@ -9,7 +9,7 @@ pip install -r requirement.txt
 ## Run
 
 ```bash
-python3 tetris.py
+python3 snake.py
 ```
 
 ## Demo
