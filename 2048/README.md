@@ -1,5 +1,7 @@
 # 2048
 
+This game is in-progress
+
 ## Setup
 
 ```bash
@@ -14,4 +16,4 @@ python3 2048.py
 
 ## Demo
 
-![demo](./assets/demo.png)
+![demo](./assets/demo-wip.png)
