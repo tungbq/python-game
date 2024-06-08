@@ -18,6 +18,8 @@ GRAVITY = 1
 JUMP_HEIGHT = 15
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+DINO_COLOR = (0, 255, 0)  # Green color for dinosaur
+OBSTACLE_COLOR = (255, 0, 0)  # Red color for obstacle
 
 # Create the screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -32,11 +34,11 @@ def draw_ground():
 
 # Function to draw the dinosaur
 def draw_dinosaur(x, y):
-    pygame.draw.rect(screen, WHITE, (x, y - DINO_HEIGHT, DINO_WIDTH, DINO_HEIGHT))
+    pygame.draw.rect(screen, DINO_COLOR, (x, y - DINO_HEIGHT, DINO_WIDTH, DINO_HEIGHT))
 
 # Function to draw obstacles
 def draw_obstacle(x, y):
-    pygame.draw.rect(screen, WHITE, (x, y - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
+    pygame.draw.rect(screen, OBSTACLE_COLOR, (x, y - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
 
 # Function to display text
 def display_text(text, x, y):
@@ -57,7 +59,7 @@ def main():
     dino_dy = 0
     is_jumping = False
     obstacle_x = SCREEN_WIDTH
-    obstacle_y = SCREEN_HEIGHT - GROUND_HEIGHT - OBSTACLE_HEIGHT
+    obstacle_y = SCREEN_HEIGHT - GROUND_HEIGHT - OBSTACLE_HEIGHT  # Start obstacle at ground level
     score = 0
     is_game_over = False
 
