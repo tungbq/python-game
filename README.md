@@ -1,2 +1,9 @@
 # python-game
-Game in python
+
+Write your own games in python
+
+## Available game
+
+| ID  | Game   | Code                | Status  |
+| :-- | :----- | :------------------ | :------ |
+| 01  | Tetris | [tetris](./tetris/) | ✔️ Done |
