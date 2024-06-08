@@ -12,6 +12,7 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
+FPS = 5  # Initial snake speed (frames per second). Higher is faster
 
 # Initialize Pygame
 pygame.init()
@@ -38,10 +39,11 @@ class Snake:
         elif self.direction == "RIGHT":
             new_head = (head[0] + 1, head[1])
         self.body.insert(0, new_head)
+        if self.body[0] != food.position:
+            self.body.pop()
 
     def grow(self):
-        tail = self.body[-1]
-        self.body.append(tail)
+        self.body.append(self.body[-1])
 
     def draw(self):
         for segment in self.body:
@@ -108,4 +110,4 @@ while True:
 
     # Update the display
     pygame.display.update()
-    clock.tick(10)
+    clock.tick(FPS)
