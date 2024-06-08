@@ -11,3 +11,7 @@ pip install -r requirement.txt
 ```bash
 python3 terris.py
 ```
+
+## Demo
+
+![demo](./assets/demo.png)
