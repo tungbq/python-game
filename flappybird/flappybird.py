@@ -50,6 +50,10 @@ class Pipe:
         # Lower pipe
         pygame.draw.rect(screen, PIPE_COLOR, (self.x, self.height + GAP_HEIGHT, PIPE_WIDTH, SCREEN_HEIGHT))
 
+    @staticmethod
+    def get_initial_x_position():
+        return SCREEN_WIDTH + 200  # Start the first pipe off-screen to the right
+
 
 class FlappyBirdGame:
     def __init__(self):
@@ -77,7 +81,6 @@ class FlappyBirdGame:
                     if SCREEN_WIDTH // 2 - 50 < event.pos[0] < SCREEN_WIDTH // 2 + 50 and SCREEN_HEIGHT // 2 + 40 - 20 < event.pos[1] < SCREEN_HEIGHT // 2 + 40 + 20:
                         self.reset_game()
 
-
     def update(self):
         if not self.game_over:
             self.bird.update()
@@ -86,11 +89,12 @@ class FlappyBirdGame:
             for pipe in self.pipes:
                 pipe.update()
                 if pipe.x < self.bird.x and not pipe.passed:
-                    self.score += 1
                     pipe.passed = True
+                    # Increment score only when the bird passes a pair of pipes
+                    if self.pipes.index(pipe) % 2 == 0:
+                        self.score += 2
                 if pipe.x < -PIPE_WIDTH:
                     self.pipes.remove(pipe)
-                # Adjust collision detection
                 bird_x_left = self.bird.x - BIRD_RADIUS + 5  # Adjust the left side of the bird collider
                 bird_x_right = self.bird.x + BIRD_RADIUS - 5  # Adjust the right side of the bird collider
                 bird_y_top = self.bird.y - BIRD_RADIUS + 5  # Adjust the top side of the bird collider
@@ -101,7 +105,6 @@ class FlappyBirdGame:
                 pipe_bottom_y = pipe.height + GAP_HEIGHT - 5  # Adjust the bottom side of the pipe collider
                 if (bird_y_top < pipe_top_y or bird_y_bottom > pipe_bottom_y) and pipe_x_left < bird_x_right and pipe_x_right > bird_x_left:
                     self.game_over = True
-
 
     def draw(self):
         self.screen.fill(BACKGROUND_COLOR)
