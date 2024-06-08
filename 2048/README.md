@@ -1,4 +1,4 @@
-# Snake
+# 2048
 
 ## Setup
 
@@ -9,7 +9,7 @@ pip install -r requirement.txt
 ## Run
 
 ```bash
-python3 snake.py
+python3 2048.py
 ```
 
 ## Demo
