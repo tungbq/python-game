@@ -37,7 +37,7 @@ class Bird:
 class Pipe:
     def __init__(self, x):
         self.x = x
-        self.min_gap = 100  # Minimum gap between pipes
+        self.min_gap = 150  # Minimum gap between pipes
         self.height = random.randint(50, SCREEN_HEIGHT - GAP_HEIGHT - self.min_gap - 50)
         self.passed = False
 
@@ -48,7 +48,7 @@ class Pipe:
         # Upper pipe
         pygame.draw.rect(screen, PIPE_COLOR, (self.x, 0, PIPE_WIDTH, self.height))
         # Lower pipe
-        pygame.draw.rect(screen, PIPE_COLOR, (self.x, self.height + self.min_gap, PIPE_WIDTH, SCREEN_HEIGHT))
+        pygame.draw.rect(screen, PIPE_COLOR, (self.x, self.height + GAP_HEIGHT, PIPE_WIDTH, SCREEN_HEIGHT))
 
 
 class FlappyBirdGame:
