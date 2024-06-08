@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 # Constants
-WIDTH, HEIGHT = 300, 300
+WIDTH, HEIGHT = 300, 350  # Extra space for the reset button
 LINE_WIDTH = 10
 BOARD_ROWS, BOARD_COLS = 3, 3
 SQUARE_SIZE = WIDTH // BOARD_COLS
@@ -17,6 +17,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
+BUTTON_COLOR = (0, 200, 0)
+BUTTON_HOVER_COLOR = (0, 255, 0)
 
 # Screen setup
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -31,9 +33,7 @@ def draw_lines():
     for row in range(1, BOARD_ROWS):
         pygame.draw.line(screen, BLACK, (0, row * SQUARE_SIZE), (WIDTH, row * SQUARE_SIZE), LINE_WIDTH)
     for col in range(1, BOARD_COLS):
-        pygame.draw.line(screen, BLACK, (col * SQUARE_SIZE, 0), (col * SQUARE_SIZE, HEIGHT), LINE_WIDTH)
-
-draw_lines()
+        pygame.draw.line(screen, BLACK, (col * SQUARE_SIZE, 0), (col * SQUARE_SIZE, HEIGHT - 50), LINE_WIDTH)
 
 # Draw X and O
 def draw_figures():
@@ -91,38 +91,60 @@ def draw_winning_line(start_row, start_col, end_row, end_col):
     end_y = end_row * SQUARE_SIZE + SQUARE_SIZE // 2
     pygame.draw.line(screen, BLACK, (start_x, start_y), (end_x, end_y), LINE_WIDTH)
 
+def draw_reset_button():
+    pygame.draw.rect(screen, BUTTON_COLOR, (WIDTH // 4, HEIGHT - 45, WIDTH // 2, 40))
+    font = pygame.font.Font(None, 36)
+    text = font.render('Reset', True, WHITE)
+    screen.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT - 40))
+
+def reset_button_hover():
+    pygame.draw.rect(screen, BUTTON_HOVER_COLOR, (WIDTH // 4, HEIGHT - 45, WIDTH // 2, 40))
+    font = pygame.font.Font(None, 36)
+    text = font.render('Reset', True, WHITE)
+    screen.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT - 40))
+
 def restart():
     screen.fill(WHITE)
     draw_lines()
     for row in range(BOARD_ROWS):
         for col in range(BOARD_COLS):
             board[row][col] = None
+    draw_reset_button()
 
 # Main game loop
 player = 'X'
 game_over = False
+
+draw_reset_button()
+draw_lines()
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+        if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
-            clicked_row = mouse_y // SQUARE_SIZE
-            clicked_col = mouse_x // SQUARE_SIZE
-
-            if available_square(clicked_row, clicked_col):
-                mark_square(clicked_row, clicked_col, player)
-                if check_winner(player):
-                    game_over = True
-                player = 'O' if player == 'X' else 'X'
-                draw_figures()
-
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_r:
+            if HEIGHT - 50 < mouse_y < HEIGHT - 10 and WIDTH // 4 < mouse_x < 3 * WIDTH // 4:
                 restart()
                 player = 'X'
                 game_over = False
+            elif not game_over:
+                clicked_row = mouse_y // SQUARE_SIZE
+                clicked_col = mouse_x // SQUARE_SIZE
+
+                if clicked_row < BOARD_ROWS and available_square(clicked_row, clicked_col):
+                    mark_square(clicked_row, clicked_col, player)
+                    if check_winner(player):
+                        game_over = True
+                    player = 'O' if player == 'X' else 'X'
+                    draw_figures()
+
+        if event.type == pygame.MOUSEMOTION:
+            mouse_x, mouse_y = event.pos
+            if HEIGHT - 50 < mouse_y < HEIGHT - 10 and WIDTH // 4 < mouse_x < 3 * WIDTH // 4:
+                reset_button_hover()
+            else:
+                draw_reset_button()
 
     pygame.display.update()
