@@ -38,10 +38,10 @@ class Snake:
         elif self.direction == "RIGHT":
             new_head = (head[0] + 1, head[1])
         self.body.insert(0, new_head)
-        self.body.pop()
 
     def grow(self):
-        self.body.append(self.body[-1])
+        tail = self.body[-1]
+        self.body.append(tail)
 
     def draw(self):
         for segment in self.body:
