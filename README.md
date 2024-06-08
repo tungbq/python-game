@@ -13,4 +13,5 @@ Write your own games in python
 | 01  | Tetris    | [tetris](./tetris/)       | ✔️ Done     |
 | 02  | Tictactoe | [tictactoe](./tictactoe/) | ✔️ Done     |
 | 03  | Snake     | [snake](./snake/)         | ✔️ Done     |
-| 04  | 2048      | [2048](./2048/)           | In-progress |
+| 04  | Dinosaur  | [dinosaur](./dinosaur/)   | ✔️ Done     |
+| 05  | 2048      | [2048](./2048/)           | In-progress |
